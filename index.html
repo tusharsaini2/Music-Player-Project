@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Music Player</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://kit.fontawesome.com/e0dab7d16b.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div class="container">
+    <div class="music-box">
+      <nav>
+        <div class="circle">
+          <i class="fa-solid fa-arrow-left"></i>
+        </div>
+        <div class="circle">
+          <i class="fa-solid fa-bars"></i>
+        </div>
+        
+      </nav>
+
+      <div class="song-img">
+        <img src="images/Jahan tum ho.jpg" >
+      </div>
+      <div class="song-detail">
+        <h1 class="song-name">Jahan Tum Ho</h1>
+        <p class="song-cast">T-series ft. Shrey Singhal</p>
+      </div>
+
+      <audio  id="song">
+        <source src="media/Jahaan Tum Ho Video Song.mp3" type="audio/mp3">
+      </audio>
+      <input type="range" value="0" id="progress">
+
+      <div class="controls">
+        <i class="fa-solid fa-backward"></i>
+        <i onclick="playpause()" class="fa-solid fa-play" id="ctlIcn"></i>
+        <i class="fa-solid fa-forward"></i>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    const progress = document.getElementById("progress");
+    const song = document.getElementById("song");
+    const ctlIcn = document.getElementById("ctlIcn");
+
+    song.onloadedmetadata = function(){
+      progress.max = song.duration;
+      progress.value = song.currentTime
+    }
+
+    function playpause(){
+      if(ctlIcn.classList.contains("fa-play")){
+        song.play()
+        ctlIcn.classList.remove("fa-play")
+        ctlIcn.classList.add("fa-pause")
+      }
+      else{
+        song.pause()
+        ctlIcn.classList.remove("fa-pause");
+        ctlIcn.classList.add("fa-play");
+      }
+    }
+
+    if(song.play()){
+      setInterval(()=>{
+        progress.value = song.currentTime
+      }, 500)
+    }
+    progress.onchange = function(){
+      song.play();
+      song.currentTime = progress.value;
+      ctlIcn.classList.remove("fa-play")
+      ctlIcn.classList.add("fa-pause")
+
+    }
+
+
+     
+  </script>
+</body>
+</html>
